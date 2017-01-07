@@ -1,0 +1,10 @@
+install:
+  - mkdir lua-build
+  - cd lua-build
+  - "\"%LOCALAPPDATA%\\Programs\\Common\\Microsoft\\Visual C++ for Python\\9.0\\vcvarsall.bat\" x86"
+  - cmake -G "NMake Makefiles" ../lua
+  - nmake
+  - cd ..
+  - ps: "iwr https://raw.githubusercontent.com/mattn/gntp-send/master/include/msinttypes/stdint.h -OutFile \".\\lua-build\\stdint.h\""
+  - cd lupa
+  - C:\\Miniconda\\python setup.py build_ext -"I%APPVEYOR_BUILD_FOLDER%\\lua-build;%APPVEYOR_BUILD_FOLDER%\\lua\\src\" -L"%APPVEYOR_BUILD_FOLDER%\\lua-build" -lliblua_static bdist_wheel
