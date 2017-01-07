@@ -23,9 +23,3 @@ build: off
 
 artifacts:
   - path: '**\*.whl'
-  
-deploy:
-  - provider: GitHub
-    auth_token:
-      secure: "Aojpv5kNW0dNj8Xee1BcSPg82RChVKUFxTlu2pSvc42BU3nxeknTcfVl8OcSXFCM"
-    artifact: /dist.*\.whl/
