@@ -1,0 +1,6 @@
+[submodule "lua"]
+	path = lua
+	url = https://github.com/LuaDist/lua.git
+[submodule "lupa"]
+	path = lupa
+	url = https://github.com/scoder/lupa.git

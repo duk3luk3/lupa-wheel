@@ -1,10 +1,31 @@
+environment:
+  matrix:
+    - PYTHON: "C:\\Miniconda"
+      VCVARS: "\"%LOCALAPPDATA%\\Programs\\Common\\Microsoft\\Visual C++ for Python\\9.0\\vcvarsall.bat\" x86"
+    - PYTHON: "C:\\Miniconda35"
+      VCVARS: "\"%PROGRAMFILES(x86)%\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat\" x86"
+    
 install:
+  - "%VCVARS%"
+  - git submodule init
+  - git submodule update
   - mkdir lua-build
   - cd lua-build
-  - "\"%LOCALAPPDATA%\\Programs\\Common\\Microsoft\\Visual C++ for Python\\9.0\\vcvarsall.bat\" x86"
-  - cmake -G "NMake Makefiles" ../lua
+  - cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release ../lua
   - nmake
   - cd ..
   - ps: "iwr https://raw.githubusercontent.com/mattn/gntp-send/master/include/msinttypes/stdint.h -OutFile \".\\lua-build\\stdint.h\""
+  - "%PYTHON%\\Scripts\\pip install cython"
   - cd lupa
-  - C:\\Miniconda\\python setup.py build_ext -"I%APPVEYOR_BUILD_FOLDER%\\lua-build;%APPVEYOR_BUILD_FOLDER%\\lua\\src\" -L"%APPVEYOR_BUILD_FOLDER%\\lua-build" -lliblua_static bdist_wheel
+  - "%PYTHON%\\python setup.py build_ext -I\"%APPVEYOR_BUILD_FOLDER%\\lua-build;%APPVEYOR_BUILD_FOLDER%\\lua\\src\" -L\"%APPVEYOR_BUILD_FOLDER%\\lua-build\" -lliblua_static bdist_wheel"
+
+build: off
+
+artifacts:
+  - path: '**\*.whl'
+  
+deploy:
+  - provider: GitHub
+    auth_token:
+      secure: "Aojpv5kNW0dNj8Xee1BcSPg82RChVKUFxTlu2pSvc42BU3nxeknTcfVl8OcSXFCM"
+    artifact: /dist.*\.whl/
