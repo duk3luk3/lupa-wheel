@@ -25,7 +25,7 @@ install:
   - cd ..
   # build bsdiff4
   - cd bsdiff4
-  - "%PYTHON%\\python setup.py bdist_wheel"
+  - "%PYTHON%\\Scripts\\pip wheel ."
 
 build: off
 
