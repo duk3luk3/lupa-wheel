@@ -9,16 +9,21 @@ install:
   - "%VCVARS%"
   - git submodule init
   - git submodule update
+  # build lua, which is required by lupa
   - mkdir lua-build
   - cd lua-build
   - cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release ../lua
   - nmake
   - cd ..
+  # download stdint.h (which MS didn't ship with Visual C++ for Python)
   - ps: "iwr https://raw.githubusercontent.com/mattn/gntp-send/master/include/msinttypes/stdint.h -OutFile \".\\lua-build\\stdint.h\""
+  # install cython as dependency for building lupa
   - "%PYTHON%\\Scripts\\pip install cython"
+  # build lupa
   - cd lupa
   - "%PYTHON%\\python setup.py build_ext -I\"%APPVEYOR_BUILD_FOLDER%\\lua-build;%APPVEYOR_BUILD_FOLDER%\\lua\\src\" -L\"%APPVEYOR_BUILD_FOLDER%\\lua-build\" -lliblua_static bdist_wheel"
   - cd ..
+  # build bsdiff4
   - cd bsdiff4
   - "%PYTHON%\\python setup.py bdist_wheel"
 
