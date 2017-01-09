@@ -4,3 +4,6 @@
 [submodule "lupa"]
 	path = lupa
 	url = https://github.com/scoder/lupa.git
+[submodule "bsdiff4"]
+	path = bsdiff4
+	url = https://github.com/ilanschnell/bsdiff4.git

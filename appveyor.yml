@@ -18,6 +18,9 @@ install:
   - "%PYTHON%\\Scripts\\pip install cython"
   - cd lupa
   - "%PYTHON%\\python setup.py build_ext -I\"%APPVEYOR_BUILD_FOLDER%\\lua-build;%APPVEYOR_BUILD_FOLDER%\\lua\\src\" -L\"%APPVEYOR_BUILD_FOLDER%\\lua-build\" -lliblua_static bdist_wheel"
+  - cd ..
+  - cd bsdiff4
+  - "%PYTHON%\\python setup.py bdist_wheel"
 
 build: off
 
