@@ -4,7 +4,7 @@ environment:
       VCVARS: "\"%LOCALAPPDATA%\\Programs\\Common\\Microsoft\\Visual C++ for Python\\9.0\\vcvarsall.bat\" x86"
     - PYTHON: "C:\\Miniconda35"
       VCVARS: "\"%PROGRAMFILES(x86)%\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat\" x86"
-    
+
 install:
   - "%VCVARS%"
   - git submodule init
@@ -31,9 +31,9 @@ build: off
 
 artifacts:
   - path: '**\*.whl'
-  
+
 deploy:
   - provider: GitHub
     auth_token:
-      secure: "Aojpv5kNW0dNj8Xee1BcSPg82RChVKUFxTlu2pSvc42BU3nxeknTcfVl8OcSXFCM"
+      secure: "+k0etQFo6doeLprKeDEmejoILMeeWCki4SvdsolyZJ9D9P+UJh0XxjM64kh4VHjw"
     artifact: /dist.*\.whl/
