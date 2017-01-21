@@ -37,3 +37,6 @@ deploy:
     auth_token:
       secure: "+k0etQFo6doeLprKeDEmejoILMeeWCki4SvdsolyZJ9D9P+UJh0XxjM64kh4VHjw"
     artifact: /dist.*\.whl/
+    draft: true
+    on:
+      appveyor_repo_tag: true
