@@ -2,7 +2,7 @@ environment:
   matrix:
     - PYTHON: "C:\\Miniconda"
       VCVARS: "\"%LOCALAPPDATA%\\Programs\\Common\\Microsoft\\Visual C++ for Python\\9.0\\vcvarsall.bat\" x86"
-    - PYTHON: "C:\\Miniconda35"
+    - PYTHON: "C:\\Python36"
       VCVARS: "\"%PROGRAMFILES(x86)%\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat\" x86"
 
 install:
@@ -18,14 +18,11 @@ install:
   # download stdint.h (which MS didn't ship with Visual C++ for Python)
   - ps: "iwr https://raw.githubusercontent.com/mattn/gntp-send/master/include/msinttypes/stdint.h -OutFile \".\\lua-build\\stdint.h\""
   # install cython as dependency for building lupa
-  - "%PYTHON%\\Scripts\\pip install cython"
+  - "%PYTHON%\\Scripts\\pip install cython wheel"
   # build lupa
   - cd lupa
   - "%PYTHON%\\python setup.py build_ext -I\"%APPVEYOR_BUILD_FOLDER%\\lua-build;%APPVEYOR_BUILD_FOLDER%\\lua\\src\" -L\"%APPVEYOR_BUILD_FOLDER%\\lua-build\" -lliblua_static bdist_wheel"
   - cd ..
-  # build bsdiff4
-  - cd bsdiff4
-  - "%PYTHON%\\Scripts\\pip wheel ."
 
 build: off
 
